@@ -114,7 +114,7 @@ function buildDictionary (options, cb) {
 			// that will be exposed globally in Sails unless configured otherwise
 			
 			// Generate `globalId` using the original value of module.identity
-			module.globalId = module.identity;
+			if (!module.globalId) {module.globalId = module.identity;}
 
 			// `identity` is the all-lowercase version
 			module.identity = module.identity.toLowerCase();
