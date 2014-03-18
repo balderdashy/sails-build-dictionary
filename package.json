@@ -1,6 +1,6 @@
 {
   "name": "sails-build-dictionary",
-  "version": "0.1.0",
+  "version": "0.10.1",
   "description": "Recursively build a dictionary of modules using include-all",
   "main": "index.js",
   "scripts": {
