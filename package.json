@@ -16,7 +16,7 @@
     "url": "https://github.com/balderdashy/sails-build-dictionary/issues"
   },
   "dependencies": {
-    "include-all": "~0.1.2",
+    "include-all": "~0.1.7",
     "lodash": "~2.4.1"
   }
 }
