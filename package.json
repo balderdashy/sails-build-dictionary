@@ -4,7 +4,7 @@
   "description": "Recursively build a dictionary of modules using include-all.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./node_modules/mocha/bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "dependencies": {
     "include-all": "0.1.6",
     "lodash": "3.10.1"
+  },
+  "devDependencies": {
+    "mocha": "3.0.2"
   }
 }

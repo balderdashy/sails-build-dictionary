@@ -16,9 +16,9 @@ npm install sails-build-dictionary --save --save-exact
 
 ```javascript
 var path = require('path');
-var load = require('sails-build-dictionary');
+var loader = require('sails-build-dictionary');
 
-load({
+loader({
   dirname: path.resolve('api/controllers'),
   filter: /(.+)Controller\.js$/
 }, function (err, modules){
@@ -72,19 +72,19 @@ When you run `require('sails-build-dictionary')`, you get a function.  Calling t
 But there are also a handful of convenience methods exposed as properties of that function.  For example:
 
 ```javascript
-var load = require('sails-build-dictionary');
+var loader = require('sails-build-dictionary');
 
-// Could just call `load()`.
+// Could just call `loader()`.
 // But could also do:
-// • load.required();
-// • load.optional();
+// • loader.required();
+// • loader.optional();
 // • etc.
 ```
 
 
 ### Available convenience methods
 
-The following convenience methods take the same "options,cb" signature as the default `load` function, and they support all of the same options.
+The following convenience methods take the same "options,cb" signature as the default `loader` function, and they support all of the same options.
 
 
 ##### .optional()
