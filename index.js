@@ -29,6 +29,9 @@ module.exports = function buildDictionary(options, cb) {
  * Build a dictionary of named modules
  * (responds with an error if the container cannot be loaded)
  *
+ * WARNING: THIS PARTICULAR CONVENIENCE METHOD WILL LIKELY BE DEPRECATED.
+ * (it's not actually being used anywhere in core)
+ *
  * @param {Dictionary} options
  * @param {Function} cb
  */
@@ -71,7 +74,7 @@ module.exports.exists = function(options, cb) {
 
 
 /**
- * Build a single module object by extending {} with the contents of each module
+ * Build a single module dictionary by extending {} with the contents of each module
  * (fail silently-- returns {} if the container cannot be loaded)
  *
  * @param {Dictionary} options
