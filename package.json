@@ -1,7 +1,7 @@
 {
   "name": "sails-build-dictionary",
   "version": "0.10.2",
-  "description": "Recursively build a dictionary of modules using include-all",
+  "description": "Recursively build a dictionary of modules using include-all.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
