@@ -208,7 +208,8 @@ require('sails-build-dictionary').aggregate({
 |:------------|:------------------------------------------------------------------------|
 | dirname     | The absolute path of a directory to load modules from.
 | identity    | if disabled, (explicitly set to false) don't inject an identity into the module also don't try to use the bundled `identity` property in the module to determine the keyname in the result dictionary. default: true
-| optional    | if enabled, fail silently and return {} when source directory does not exist or cannot be read (otherwise, exit w/ an error)  default: false
+| optional    | if enabled, continue silently and return {} when source directory does not exist or cannot be read.  Normally, this throws an error in that scenario.  default: false
+| ignoreRequireFailures    | if enabled, continue silently if a `require()` call throws.  _This should be used with care!  It completely swallows the require error!_  default: false.  This is useful for tolerating malformed node_modules (see https://github.com/balderdashy/include-all/pull/14)
 | depth       | the maximum level of recursion where modules will be included. Defaults to infinity.
 | filter      | only include modules whose FILENAME matches this regex. default `undefined`
 | pathFilter  | only include modules whose FULL RELATIVE PATH matches this regex (relative from the entry point directory). default `undefined`
