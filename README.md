@@ -20,6 +20,7 @@ var load = require('sails-build-dictionary');
 
 load({
   dirname: path.resolve('api/controllers'),
+  filter: /(.+)Controller\.js$/
 }, function (err, modules){
   if (err) {
     console.error('Failed to load controllers.  Details:',err);
@@ -27,17 +28,42 @@ load({
   }
 
   console.log(modules);
-  //=>
-  //{
-  //  'UserController.js': {
-  //    find: function (req, res) { return res.ok(); }
-  //  },
-  //  'PageController.js': {
-  //    showHomePage: function (req, res) { return res.view('homepage'); }
-  //  }
-  //}
+
+  // =>
+  // (notice that `identity` and `globalId` are added automatically)
+  //
+  // ```
+  //  { page:
+  //   { showSignupPage: [Function],
+  //     showRestorePage: [Function],
+  //     showEditProfilePage: [Function],
+  //     showProfilePage: [Function],
+  //     showAdminPage: [Function],
+  //     showHomePage: [Function],
+  //     showVideosPage: [Function],
+  //     identity: 'page',
+  //     globalId: 'Page' },
+  //  user:
+  //   { login: [Function],
+  //     logout: [Function],
+  //     signup: [Function],
+  //     removeProfile: [Function],
+  //     restoreProfile: [Function],
+  //     restoreGravatarURL: [Function],
+  //     updateProfile: [Function],
+  //     changePassword: [Function],
+  //     adminUsers: [Function],
+  //     updateAdmin: [Function],
+  //     updateBanned: [Function],
+  //     updateDeleted: [Function],
+  //     identity: 'user',
+  //     globalId: 'User' },
+  //  video: { identity: 'video', globalId: 'Video' } }
+  // ```
 });
 ```
+
+
 
 ## Methods
 
@@ -83,6 +109,97 @@ Build a single module dictionary by extending {} with the contents of each modul
 (fail silently-- returns {} if the container cannot be loaded)
 
 > This is how `sails.config` is built from config files.
+
+For example:
+
+```javascript
+require('sails-build-dictionary').aggregate({
+  dirname: '/code/brushfire-ch10-end/config/',
+  filter: /(.+)\.js$/,
+  depth: 1
+}, function (err, modules) {
+  if (err) { console.error('Error:', err); return; }
+
+  // =>
+  //  { blueprints: { actions: false, rest: false, shortcuts: false },
+  //    bootstrap: [Function],
+  //    connections:
+  //     { localDiskDb: { adapter: 'sails-disk' },
+  //       someMysqlServer:
+  //        { adapter: 'sails-mysql',
+  //          host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
+  //          user: 'YOUR_MYSQL_USER',
+  //          password: 'YOUR_MYSQL_PASSWORD',
+  //          database: 'YOUR_MYSQL_DB' },
+  //       someMongodbServer: { adapter: 'sails-mongo', host: 'localhost', port: 27017 },
+  //       somePostgresqlServer:
+  //        { adapter: 'sails-postgresql',
+  //          host: 'YOUR_POSTGRES_SERVER_HOSTNAME_OR_IP_ADDRESS',
+  //          user: 'YOUR_POSTGRES_USER',
+  //          password: 'YOUR_POSTGRES_PASSWORD',
+  //          database: 'YOUR_POSTGRES_DB' },
+  //       myPostgresqlServer:
+  //        { adapter: 'sails-postgresql',
+  //          host: 'localhost',
+  //          user: 'jgalt',
+  //          password: 'blahblah',
+  //          database: 'brushfire' } },
+  //    cors: {},
+  //    globals: {},
+  //    http: {},
+  //    i18n: {},
+  //    log: {},
+  //    models: { connection: 'localDiskDb', schema: true, migrate: 'drop' },
+  //    policies:
+  //     { '*': true,
+  //       VideoController: { create: [Object] },
+  //       UserController:
+  //        { login: [Object],
+  //          logout: [Object],
+  //          removeProfile: [Object],
+  //          updateProfile: [Object],
+  //          restoreGravatarURL: [Object],
+  //          changePassword: [Object],
+  //          signup: [Object],
+  //          restoreProfile: [Object],
+  //          adminUsers: [Object],
+  //          updateAdmin: [Object],
+  //          updateBanned: [Object],
+  //          updateDeleted: [Object] },
+  //       PageController:
+  //        { showSignupPage: [Object],
+  //          showAdminPage: [Object],
+  //          showProfilePage: [Object],
+  //          showEditProfilePage: [Object],
+  //          showRestorePage: [Object] } },
+  //    routes:
+  //     { 'PUT /login': 'UserController.login',
+  //       'GET /logout': 'UserController.logout',
+  //       'GET /video': 'VideoController.find',
+  //       'POST /video': 'VideoController.create',
+  //       'POST /user/signup': 'UserController.signup',
+  //       'PUT /user/removeProfile': 'UserController.removeProfile',
+  //       'PUT /user/restoreProfile': 'UserController.restoreProfile',
+  //       'PUT /user/restoreGravatarURL': 'UserController.restoreGravatarURL',
+  //       'PUT /user/updateProfile': 'UserController.updateProfile',
+  //       'PUT /user/changePassword': 'UserController.changePassword',
+  //       'GET /user/adminUsers': 'UserController.adminUsers',
+  //       'PUT /user/updateAdmin/:id': 'UserController.updateAdmin',
+  //       'PUT /user/updateBanned/:id': 'UserController.updateBanned',
+  //       'PUT /user/updateDeleted/:id': 'UserController.updateDeleted',
+  //       'GET /': 'PageController.showHomePage',
+  //       'GET /videos': 'PageController.showVideosPage',
+  //       'GET /administration': 'PageController.showAdminPage',
+  //       'GET /profile': 'PageController.showProfilePage',
+  //       'GET /edit-profile': 'PageController.showEditProfilePage',
+  //       'GET /restore': 'PageController.showRestorePage',
+  //       'GET /signup': 'PageController.showSignupPage' },
+  //    session: { secret: 'blahblah' },
+  //    sockets: {},
+  //    views: { engine: 'ejs', layout: 'layout', partials: true } }
+});
+```
+
 
 
 ## Options
